@@ -312,7 +312,7 @@ describe("Greet", () => {
 
 - A "Test Suite" according to Jest is **one file**, and not a `describe()` block, although you group tests together using `describe()` it does not correspond to a "Test Suite".
 
-### 12. Filename Conventions
+### 13. Filename Conventions
 
 - We are not restricted to the `FileName.test.tsx` convention with CRA and Jest
 
@@ -322,7 +322,7 @@ describe("Greet", () => {
 
 - Recommended to always put your tests next to the code they are testing so that relative imports are shorter
 
-### 13. Code Coverage
+### 14. Code Coverage
 
 - A metric that can help you understand how much of your software code is tested, A useful metric that can help tell you the quality of your test suite
 
@@ -443,7 +443,7 @@ Jest: "global" coverage threshold for branches (80%) not met: 50%
 - Do Not Focus on getting 100% Code Coverage because it doesn't guarantee that you have written good tests covering critical parts of your application
 - With that being said 80% Code Coverage is a good goal to aim for (and make it part of your Continuous Integration Pipeline)
 
-### 14. Assertions
+### 15. Assertions
 
 - When writing tests we often need to check that values meet certain conditions
 - Assertions decide if a test passes or fails
@@ -490,3 +490,23 @@ Jest: "global" coverage threshold for branches (80%) not met: 50%
   - `toBeEnabled` - for buttons/inputs
   - `toHaveClass`
   - `toHaveValue`
+
+### 16. What to Test?
+
+- Guideline starting point for what is worth testing in a React Component
+
+- Test that the Component **renders**
+
+- Test that the Component renders **when given props**
+
+- Test that the Component renders **in different states** (eg. user logged in or not)
+
+- Test that the Component **reacts to events** (eg. buttons / form controls)
+
+#### What Not To Test
+
+- Implementation Details - the more closely your tests resemble how the software is being used the better - you want tests that test the behaviour and not how that behaviour is implemented
+
+- Third Party Code - you should be testing code that you are writing in your Project and not code you are consuming from an external library
+
+- Code that is not Important from a User's Point of View (eg. a utility function to format a Date - only test if the date was rendered in the expected format)
