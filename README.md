@@ -425,14 +425,14 @@ describe("GreetWithBranchingLogic", () => {
 
 ```sh
 -----------------------------|---------|----------|---------|---------|-------------------
-File | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+File                         | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 -----------------------------|---------|----------|---------|---------|-------------------
-All files | 100 | 50 | 100 | 100 |
-Greet.tsx | 100 | 100 | 100 | 100 |
-GreetGroup.tsx | 100 | 100 | 100 | 100 |
-GreetTDD.tsx | 100 | 100 | 100 | 100 |
-GreetWithBranchingLogic.tsx | 100 | 50 | 100 | 100 | 4
-GreetWithType.tsx | 100 | 100 | 100 | 100 |
+All files                    |     100 |       50 |     100 |     100 |
+ Greet.tsx                   |     100 |      100 |     100 |     100 |
+ GreetGroup.tsx              |     100 |      100 |     100 |     100 |
+ GreetTDD.tsx                |     100 |      100 |     100 |     100 |
+ GreetWithBranchingLogic.tsx |     100 |       50 |     100 |     100 | 4
+ GreetWithType.tsx           |     100 |      100 |     100 |     100 |
 -----------------------------|---------|----------|---------|---------|-------------------
 Jest: "global" coverage threshold for branches (80%) not met: 50%
 ```
@@ -442,3 +442,51 @@ Jest: "global" coverage threshold for branches (80%) not met: 50%
 
 - Do Not Focus on getting 100% Code Coverage because it doesn't guarantee that you have written good tests covering critical parts of your application
 - With that being said 80% Code Coverage is a good goal to aim for (and make it part of your Continuous Integration Pipeline)
+
+### 14. Assertions
+
+- When writing tests we often need to check that values meet certain conditions
+- Assertions decide if a test passes or fails
+
+- with Jest assertions are carried out with the global `expect()` method
+- the `expect(value)` method accepts 1 argument
+- the `value` argument should be the value that your code produces
+
+- in the `Greet` example it is a DOM Node
+
+- You will rarely call `expect()` by itself
+
+- Typically you will use expect along with a **"matcher"** function to assert something about a value
+
+- A **"matcher"** can optionally accept an argument which is the correct expected value
+
+- in the `Greet` example is it `.toBeInTheDocument()` which does not need an argument and verfies if the DOM Node is present in the DOM
+
+- To start with its hard to know which **"matcher"** functions we can use when writing a test, so visit https://jestjs.io/docs/using-matchers to see a list of commonly used **"matchers"**
+
+  - Numbers:
+  - `expect(value).toBeGreaterThan(3);`
+  - `expect(value).toBeLessThan(5);`
+
+  - Strings:
+  - `expect('Christoph').toMatch(/stop/);`
+
+  - Arrays/Iterables:
+  - `expect(shoppingList).toContain('milk');`
+
+  - Error
+  - `expect(() => compileAndroidCode()).toThrow(Error);`
+
+- Jest out of the box contains **"matcher"** functions for JavaScript testing that does not involve a UI or the DOM.
+
+- We extend the list of Jest **"matchers"** by adding an additional package called `jest-dom`
+
+- With CRA `jest-dom` is already installed for us if we look in `package.json` we can see in `"dependencies":` `"@testing-library/jest-dom": "^5.17.0",` and if we look at `setupTests.ts` we can see `import '@testing-library/jest-dom';`
+
+- `setupTests.ts` is a global file that is automatically executed before Jest runs a test
+
+- if we visit https://github.com/testing-library/jest-dom we can see a list of Custom Matchers as well as Documentation for WHEN to use a particular **"matcher"** function
+  - `toBeInTheDocument`
+  - `toBeEnabled` - for buttons/inputs
+  - `toHaveClass`
+  - `toHaveValue`
