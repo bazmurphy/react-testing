@@ -109,9 +109,12 @@ Ran all test suites.
 ## 7. Anatomy of a Test
 
 - `test()` accepts 3 arguments:
+
   1. name - the first argument is the test name used to identify the test
   2. function - the second argument is the function that contains the expectations to test
   3. timeout - the third argument is the timeout which is an optional argument for specifying how long to wait before aborting the test. the default timeout value is 5 seconds.
+
+- Note we can also use `it()` as an alternative to `test()`
 
 ```jsx
 import { render, screen } from "@testing-library/react";
@@ -228,6 +231,10 @@ export const GreetTDD = (props: GreetTDDProps) => {
 - using `.only()` is common when working on a file that contains multiple tests
 - using `.skip()` will tell Jest to skip that test
 
+- when using `it()` instead of `test()`
+  - the equivalent for `only` is `f` (focus it) so: `fit()`
+  - the equuivalent for `skip` is `x` (exclude it) so: `xit()`
+
 ### 12. Grouping Tests
 
 - If you want to group your tests with Jest you can use the `describe()`
@@ -272,7 +279,7 @@ describe("Greet", () => {
 
 - we can also use `.only` and `.skip` with `describe()`
 
-- it is possible to nest describe blocks
+- it is possible to nest `describe()` blocks
 
 ```jsx
 import { render, screen } from "@testing-library/react";
@@ -304,3 +311,15 @@ describe("Greet", () => {
 ```
 
 - A "Test Suite" according to Jest is **one file**, and not a `describe()` block, although you group tests together using `describe()` it does not correspond to a "Test Suite".
+
+### 12. Filename Conventions
+
+- We are not restricted to the `FileName.test.tsx` convention with CRA and Jest
+
+- Files with `.test.js` or `.test.tsx` suffix
+- Files with `.spec.js` or `.spec.tsx` suffix
+- Files with `.js` or `.tsx` suffix in `__tests__` folders (at any depth in the src folder)
+
+- Recommended to always put your tests next to the code they are testing so that relative imports are shorter
+
+### 13.
