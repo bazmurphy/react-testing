@@ -1,6 +1,4 @@
-# React Testing
-
----
+# React Testing (hand written notes)
 
 ## 3. Jest vs React Testing Library
 
@@ -95,7 +93,7 @@ In `cra/src/` we have `App.tsx` but also `App.test.tsx`
 We can run this test with Jest
 In `package.json` we have a `test` script `"test": "react-scripts test",` this will call Jest
 
-```sh
+```shell
  PASS  src/App.test.tsx
   √ renders learn react link (27 ms)
 
@@ -139,7 +137,7 @@ test("renders learn react link", () => {
 
 ---
 
-## 8 First Test
+## 8. First Test
 
 1. Create a `Greet.tsx` component
 
@@ -164,7 +162,7 @@ test("Greet renders correctly", () => {
 
 ---
 
-## 9 Test Driven Development
+## 9. Test Driven Development
 
 - Test Driven Development is a software development process where you write tests before writing the software code
 - Once the tests have been written, you then write the code to ensure the tests pass
@@ -212,3 +210,97 @@ export const GreetTDD = (props: GreetTDDProps) => {
 - And now run the Tests and they PASS
 
 ---
+
+## 10. Jest Watch Mode
+
+- When we run `npm run test` it starts Jest in `--watch` mode
+- Watch Mode is an option that we can pass to Jest asking to watch files that have changed since the last commit and execute tests related only to those changed files
+- An optimisation designed to make your tests run fast regardless of how many tests you have
+
+## 11. Filtering Tests
+
+- we can use `w` then `o` to only run tests related to changed files
+- we can use `p` to filter by filename - we then enter a regex pattern (or some text and select the file)
+- we can use `t` to filter by the test name - we then enter some text and select the test
+- to clear the filter use `w` and then `c`
+
+- on the global `test()` method you can use `.only` so `test.only()` in which case Jest will pickup only that test to run
+- using `.only()` is common when working on a file that contains multiple tests
+- using `.skip()` will tell Jest to skip that test
+
+### 12. Grouping Tests
+
+- If you want to group your tests with Jest you can use the `describe()`
+
+- `describe()` accepts 2 arguments:
+
+  1. name - the first argument is the group name
+  2. function - the second argument is the function that contains the tests to be executed
+
+- we can also rename the tests so they read better in the output.
+- Greet
+  - renders correctly
+  - renders with a name
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import { GreetGroup } from "./GreetGroup";
+
+describe("Greet", () => {
+  test("renders correctly", () => {
+    render(<GreetGroup />);
+    const textElement = screen.getByText("Hello");
+    expect(textElement).toBeInTheDocument();
+  });
+
+  describe("Nested", () => {
+    test("renders with a name", () => {
+      render(<GreetGroup name={"Baz"} />);
+      const textElement = screen.getByText("Hello Baz");
+      expect(textElement).toBeInTheDocument();
+    });
+  });
+});
+```
+
+```shell
+ PASS  src/components/GreetGroup.test.tsx
+  Greet
+    √ renders correctly (24 ms)
+    √ renders with a name (3 ms)
+```
+
+- we can also use `.only` and `.skip` with `describe()`
+
+- it is possible to nest describe blocks
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import { GreetGroup } from "./GreetGroup";
+
+describe("Greet", () => {
+  test("renders correctly", () => {
+    render(<GreetGroup />);
+    const textElement = screen.getByText("Hello");
+    expect(textElement).toBeInTheDocument();
+  });
+
+  describe("Nested", () => {
+    test("renders with a name", () => {
+      render(<GreetGroup name={"Baz"} />);
+      const textElement = screen.getByText("Hello Baz");
+      expect(textElement).toBeInTheDocument();
+    });
+  });
+});
+```
+
+```sh
+ PASS  src/components/GreetGroup.test.tsx
+  Greet
+    √ renders correctly (21 ms)
+    Nested
+      √ renders with a name (1 ms)
+```
+
+- A "Test Suite" according to Jest is **one file**, and not a `describe()` block, although you group tests together using `describe()` it does not correspond to a "Test Suite".
