@@ -555,3 +555,124 @@ Jest: "global" coverage threshold for branches (80%) not met: 50%
 - `getBy`
   - class of queries return the matching node for a query
   - and throw a descriptive error if no elements match or if more than one match is found
+
+## 18. `getByRole`
+
+- `getByRole` queries for elements with given role
+
+- What is a role? Role refers to the ARIA (Accessible Rich Internet Applications) role which provides semantic meaning to content to ensure people using assistive technologies are able to use them.
+
+- `button` element has a button role
+- `anchor` element has a link role
+- `h1` to `h6` have a heading role
+- `checkboxes` have a checkbox role
+- `radio` buttons have a radio role
+- etc
+
+- If you are working with elements that do not have a default `role` or if you want to specify a different role, the role attribute can be used to add the desired role.
+
+- To use an anchor element as a button in the navbar, you can add `role="button"`
+
+## 19. `getByRole` Options
+
+- The `getByRole` method accepts a few options that we can use to tweak the querying logic
+
+- Two of them are very important to know:
+
+- If we try to query a form with both an `<input type="text>` and `<textarea>` we will get the error: `TestingLibraryElementError: Found multiple elements with the role "textbox"`
+
+```jsx
+describe("Application", () => {
+  test("renders correctly", () => {
+    render(<Application />);
+    const nameElement = screen.getByRole("textbox");
+    ...
+  })
+})
+```
+
+- This is because the default role for both `<input type="text>` and `<textarea>` is `textbox`
+
+- We can add a 2nd parameter, in the form of an object, with key/value pairs to be more specific
+
+- the accessible `name` is for simple cases to equal:
+
+  1. the `label` of a form element
+  2. the `text content` of a button
+  3. the value of the `aria-label` attribute
+
+- So in this case we use the string "Name" from the `label` of the `input` and "Bio" from the `label` of the `textarea`
+
+```jsx
+describe("Application", () => {
+  test("renders correctly", () => {
+    render(<Application />);
+    const nameElement = screen.getByRole("textbox", { name: "Name" });
+    expect(nameElement).toBeInTheDocument();
+
+    const bioElement = screen.getByRole("textbox", { name: "Bio" });
+    expect(bioElement).toBeInTheDocument();
+    ...
+  });
+});
+```
+
+- And the tests pass because we have verified that the `input` and `textarea` elements have been rendered by our Application Component
+
+- If we have two heading elements eg. `<h1>` and `<h2>` and we try to use `getByRole("heading")` then we get the error: `TestingLibraryElementError: Found multiple elements with the role "heading`
+
+- This is because the default `role` for all headings h1-h6 is `heading`
+
+- So we can use the `name` again as above and provide the specific heading text
+
+```jsx
+describe("Application", () => {
+  test("renders correctly", () => {
+    render(<Application />);
+
+    const pageHeading = screen.getByRole("heading", {
+      name: "Job Application Form",
+    });
+    expect(pageHeading).toBeInTheDocument();
+
+    const sectionHeading = screen.getByRole("heading", {
+      name: "Section 1",
+    });
+    expect(sectionHeading).toBeInTheDocument();
+    ...
+  });
+});
+```
+
+- But we are not making sure they are `h1` and `h2` respectively
+
+- the `level` option is specific to the `heading` role and can specify what level the heading is, `h1` through to `h6`
+
+```jsx
+describe("Application", () => {
+  test("renders correctly", () => {
+    render(<Application />);
+
+    const pageHeading = screen.getByRole("heading", {
+      level: 1,
+    });
+    expect(pageHeading).toBeInTheDocument();
+
+    const sectionHeading = screen.getByRole("heading", {
+      level: 2,
+    });
+    expect(sectionHeading).toBeInTheDocument();
+  });
+});
+```
+
+- there are other `getByRole` options:
+
+  - `name`
+  - `level`
+  - `hidden`
+  - `selected`
+  - `checked`
+  - `pressed`
+
+- the `getByRole` method should be the top query you use.
