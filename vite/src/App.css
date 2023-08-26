@@ -2,3 +2,34 @@
   display: grid;
   background-color: hsl(0, 0%, 12%);
 }
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+nav button {
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border: 0.1rem solid #6d1fa1;
+  border-radius: 0.25rem;
+  color: #c792ea;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+nav button .arrow {
+  font-weight: 900;
+}
+
+nav button .page-number {
+  font-size: 0.75rem;
+}
