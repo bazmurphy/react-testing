@@ -31,7 +31,7 @@
 - Focus is on testing a combination of units and ensuring they work together
 - Take longer than unit tests
 
-## End to End Tests
+### End to End Tests
 
 - Focus is on testing the entire application flow and ensuring it works as designed from start to finish
 - Involves a real UI, a real backend database, a real service etc.
@@ -235,7 +235,7 @@ export const GreetTDD = (props: GreetTDDProps) => {
   - the equivalent for `only` is `f` (focus it) so: `fit()`
   - the equuivalent for `skip` is `x` (exclude it) so: `xit()`
 
-### 12. Grouping Tests
+## 12. Grouping Tests
 
 - If you want to group your tests with Jest you can use the `describe()`
 
@@ -312,7 +312,7 @@ describe("Greet", () => {
 
 - A "Test Suite" according to Jest is **one file**, and not a `describe()` block, although you group tests together using `describe()` it does not correspond to a "Test Suite".
 
-### 13. Filename Conventions
+## 13. Filename Conventions
 
 - We are not restricted to the `FileName.test.tsx` convention with CRA and Jest
 
@@ -322,7 +322,7 @@ describe("Greet", () => {
 
 - Recommended to always put your tests next to the code they are testing so that relative imports are shorter
 
-### 14. Code Coverage
+## 14. Code Coverage
 
 - A metric that can help you understand how much of your software code is tested, A useful metric that can help tell you the quality of your test suite
 
@@ -443,7 +443,7 @@ Jest: "global" coverage threshold for branches (80%) not met: 50%
 - Do Not Focus on getting 100% Code Coverage because it doesn't guarantee that you have written good tests covering critical parts of your application
 - With that being said 80% Code Coverage is a good goal to aim for (and make it part of your Continuous Integration Pipeline)
 
-### 15. Assertions
+## 15. Assertions
 
 - When writing tests we often need to check that values meet certain conditions
 - Assertions decide if a test passes or fails
@@ -491,7 +491,7 @@ Jest: "global" coverage threshold for branches (80%) not met: 50%
   - `toHaveClass`
   - `toHaveValue`
 
-### 16. What to Test?
+## 16. What to Test?
 
 - Guideline starting point for what is worth testing in a React Component
 
@@ -676,3 +676,5 @@ describe("Application", () => {
   - `pressed`
 
 - the `getByRole` method should be the top query you use.
+
+## 20. `getByLabelText` Options
