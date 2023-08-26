@@ -43,6 +43,8 @@ export const Page = ({ pageNumber }: { pageNumber: number }) => {
             return !inline && match ? (
               <SyntaxHighlighter
                 children={String(children).replace(/\n$/, "")}
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
                 style={vscDarkPlus}
                 language={match[1]}
                 PreTag={CustomPreTag} // Use the component here
